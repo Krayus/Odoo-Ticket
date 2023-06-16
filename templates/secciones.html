@@ -1,0 +1,6 @@
+{% if label == 'option' %}
+<option></option>
+{% endif %}
+{% for seccion in secciones %}
+<{{ label }} value='{{ seccion.CODSECC }}'>{{ seccion.CODRAMO }} - {{ seccion.CODSECC }}</{{ label }}>
+{% endfor %}

@@ -1,0 +1,7 @@
+{% if label == 'option' %}
+<option></option>
+{% endif %}
+{% for sede in sedes %}
+<{{ label }} value='{{ sede.CODSEDE }}'>{{ sede.DESCRIPCION }}</{{ label }}>
+{% endfor %}
+

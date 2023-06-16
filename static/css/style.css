@@ -1,0 +1,43 @@
+body{
+	background-image: url('../img/udd-wallpaper.jpg ');
+	background-size: cover;
+}
+
+h1{
+    font-size: 1.7rem !important;
+}
+
+.form-control-lg, .form-select-lg{
+    font-size: 0.8rem !important;
+}
+
+.card {
+	margin: 0 auto; /* Added */
+	float: none; /* Added */
+	margin-bottom: 10px; /* Added */
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+label{
+	font-size: 0.9em;
+    font-weight: bold;
+	margin-bottom: 1em; 
+}
+
+.main-label{
+	display: block !important;
+}
+
+#error{
+	font-size: 0.8em;
+}
+
+.required{
+    color: red;
+}

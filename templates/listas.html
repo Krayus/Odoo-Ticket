@@ -1,0 +1,117 @@
+<h5>Recuerde que estos datos ser&aacute;n validados en procesos de sincronizaci&oacute;n y eliminados si no corresponden.</h5>
+<form class="" id="listasForm">
+    <input type="hidden" class="form-control" name="tipo" id="tipoLista" value="0">
+    <div class="form-group row p-1">
+        <label for="staticRut" class="col-sm-2 col-form-label">RUT</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="rut" id="staticRut">
+        </div>
+    </div>
+
+    <div class="form-group row p-1">
+        <label for="sedes" class="col-sm-2 col-form-label">Sedes</label>
+        <div class="col-sm-8">
+            <select class="form-select" name="sede" id="sedes" style="width:100%"></select>
+        </div>
+    </div>
+    <div class="form-group row p-1">
+        <label for="carreras" class="col-sm-2 col-form-label">Carrera</label>
+        <div class="col-sm-8">
+            <select class="form-select" name="carrera" id="carreras" style="width:100%"></select>
+        </div>
+    </div>
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-generacionales-tab" data-tipo="0" data-bs-toggle="tab" data-bs-target="#nav-generacionales" type="button" role="tab" aria-controls="nav-generacionales" aria-selected="true">Generacionales</button>
+    <button class="nav-link" id="nav-cursos-tab" data-tipo="1" data-bs-toggle="tab" data-bs-target="#nav-cursos" type="button" role="tab" aria-controls="nav-cursos" aria-selected="false">Cursos</button>
+  </div>
+</nav>
+
+<div class="tab-content border-end border-bottom border-start p-2" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-generacionales" role="tabpanel" aria-labelledby="nav-generacionales-tab">
+        <div class="form-group row">
+            <label for="generacion" class="col-sm-3 col-form-label">Generaci&oacute;n</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="generacion" id="generacion">
+            </div>
+        </div>
+  </div>
+
+  <div class="tab-pane fade" id="nav-cursos" role="tabpanel" aria-labelledby="nav-cursos-tab">
+        <div class="form-group row p-1">
+            <label for="staticRut" class="col-sm-2 col-form-label">A&ntilde;o</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="anhio" id="anhio">
+            </div>
+            <label for="staticRut" class="col-sm-2 col-form-label">Periodo</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="periodo" id="periodo">
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary" onClick="javascript:buscarcursos();">Buscar</button>
+            </div>
+        </div>
+
+        <div class="form-group row p-1">
+            <label for="cursos" class="col-sm-2 col-form-label">Curso</label>
+            <div class="col-sm-8">
+                <select class="form-select" name="curso" id="cursos" style="width:100%"></select>
+            </div>
+        </div>
+
+        <div class="form-group row p-1">
+            <label for="secciones" class="col-sm-2 col-form-label">Seccion</label>
+            <div class="col-sm-8">
+                <select class="form-select" name="seccion" id="secciones" style="width:100%"></select>
+            </div>
+        </div>      
+  </div>
+</div>
+
+
+    <div class="form-group row p-1">
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" onClick="javascript:enviar()">Enviar</button>
+        </div>
+    </div>
+    
+</form>
+
+
+<script>
+$('#secciones').select2({theme: "bootstrap-5"});    
+$('#cursos').select2({theme: "bootstrap-5"});
+$('#carreras').select2({theme: "bootstrap-5"});
+    
+$('#sedes').load('/sedes').select2({placeholder: "Seleccione sede", theme: "bootstrap-5"});
+$('#sedes').on('select2:select', function (e) {
+    var sede = $(this).find(':selected');
+    $('#carreras').load('/carreras', { "sede": sede.val() }).select2({placeholder: "Seleccione carrera", theme: "bootstrap-5"});
+});
+
+$('#nav-tab').on('shown.bs.tab', function(e){
+    var tipo = $(e.target).data("tipo")
+    $('#tipoLista').val(tipo)
+})
+
+function buscarcursos(){
+    var carrera = $('#carreras').find(':selected');
+    var sede = $('#sedes').find(':selected');
+    var anhio = $('#anhio');
+    var periodo = $('#periodo');
+    
+    $('#cursos').load('/cursos', { "sede": sede.val(), "carrera": carrera.val(), "anhio": anhio.val(), "periodo": periodo.val() }).select2({placeholder: "Seleccione curso", theme: "bootstrap-5"});
+    $('#cursos').on('select2:select', function (e) {
+        var curso = $(this).find(':selected');
+        $('#secciones').load('/secciones', { "sede": sede.val(), "carrera": carrera.val(), "curso": curso.val(), "anhio": anhio.val(), "periodo": periodo.val() }).select2({placeholder: "Seleccione seccion", theme: "bootstrap-5"});
+    });
+    
+}
+
+function enviar(){
+    console.log($('#listasForm').serialize())
+}
+</script>
+

@@ -1,0 +1,6 @@
+{% if label == 'option' %}
+<option></option>
+{% endif %}
+{% for curso in cursos %}
+<{{ label }} value='{{ curso.CODRAMO }}'>{{ curso.NOMBRE_RAMO }}</{{ label }}>
+{% endfor %}

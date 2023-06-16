@@ -1,0 +1,6 @@
+{% if label == 'option' %}
+<option></option>
+{% endif %}
+{% for carrera in carreras %}
+<{{ label }} value='{{ carrera.CODCARR }}'>({{ carrera.CODCARR }}) {{ carrera.NOMBRE_C }}</{{ label }}>
+{% endfor %}
